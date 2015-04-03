@@ -237,10 +237,12 @@ class ApisController extends Controller
 		$api = $this->findModel($id);
 		$api->published = 1;
 		$api->save();
-		$apiName = preg_replace('/\s+/', '', $api->name);
 
+		// Notify all followers that the swagger has been produced
 		$change = new NotifAPIHelper();
 		$followersNotified = $change->apiChangedPublished($id);
+
+		$apiName = preg_replace('/\s+/', '', $api->name);
 
 		$basePathPart = explode('publish', Url::canonical());
 		$basePath = $basePathPart[0] . $apiName . '/';
