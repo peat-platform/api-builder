@@ -242,6 +242,7 @@ class ApisController extends Controller
 		$change = new NotifAPIHelper();
 		$followersNotified = $change->apiChangedPublished($id);
 
+		// Strip the Api Name of all spaces to produce a valid folder and filenames.
 		$apiName = preg_replace('/\s+/', '', $api->name);
 
 		$basePathPart = explode('publish', Url::canonical());
