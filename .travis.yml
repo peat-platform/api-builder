@@ -1,0 +1,50 @@
+language: php
+
+php:
+#  - 5.4
+  - 5.5
+#  - 5.6
+#  - 7.0
+#  - hhvm
+#  - hhvm-nightly
+
+# run build against hhvm but allow them to fail
+# http://docs.travis-ci.com/user/build-configuration/#Rows-That-are-Allowed-To-Fail
+#matrix:
+#  fast_finish: true
+#  allow_failures:
+#    - php: hhvm-nightly
+#    - php: 7.0
+
+# faster builds on new travis setup not using sudo
+#sudo: false
+
+# cache vendor dirs
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
+install:
+  - travis_retry composer self-update && composer --version
+  - travis_retry composer global require "fxp/composer-asset-plugin:1.0.0"
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - travis_retry composer install --prefer-dist --no-interaction
+# codeception
+  - travis_retry composer global require "codeception/codeception=*" "codeception/specify=*" "codeception/verify=*"
+# setup application:
+  - |
+    sed -i "s/'cookieValidationKey' => ''/'cookieValidationKey' => 'testkey'/" config/webTest.php
+    cd tests
+    codecept build
+    cd ..
+
+before_script:
+  - mysql -e "create database IF NOT EXISTS apibuilder;" -uroot
+  - cd tests/codeception/bin && php yii migrate --interactive=0 && cd ../../../web
+
+script:
+  - |
+    php -S localhost:8080 > /dev/null 2>&1 &
+    cd ../tests
+    codecept run

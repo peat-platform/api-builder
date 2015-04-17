@@ -1,5 +1,5 @@
 {
-    "name": "api-builder",
+    "name": "openi-ict/api-builder",
     "description": "Implementation of the API Builder for OPENI",
     "keywords": ["OPENi", "API", "builder", "php", "yii2"],
     "homepage": "http://www.openi-ict.eu",
@@ -14,7 +14,7 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/OPENi-ict/api-builder/issues?state=open",
+        "issues": "https://github.com/OPENi-ict/api-builder/issues",
         "source": "https://github.com/OPENi-ict/api-builder"
     },
     "minimum-stability": "stable",
@@ -32,7 +32,7 @@
         "zircote/swagger-php": "*",
         "yiidoc/yii2-timeago": "*",
         "costa-rico/yii2-images": "dev-master",
-        "romdim/yii2-bootstrap-material": "dev-master",
+        "romdim/yii2-bootstrap-material": "dev-material-version-0-2-2",
         "romdim/yii2-snackbarjs": "dev-master"
     },
     "require-dev": {
