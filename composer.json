@@ -1,8 +1,8 @@
 {
-    "name": "openi-ict/api-builder",
+    "name": "peat-platform/api-builder",
     "description": "Implementation of the API Builder for OPENI",
     "keywords": ["OPENi", "API", "builder", "php", "yii2"],
-    "homepage": "http://www.openi-ict.eu",
+    "homepage": "http://www.peat-platform.org",
     "type": "project",
     "license": "GPL-2.0",
     "authors": [
@@ -14,8 +14,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/OPENi-ict/api-builder/issues",
-        "source": "https://github.com/OPENi-ict/api-builder"
+        "issues": "https://github.com/peat-platform/api-builder/issues",
+        "source": "https://github.com/peat-platform/api-builder"
     },
     "minimum-stability": "stable",
     "require": {
