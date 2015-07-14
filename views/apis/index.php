@@ -1,23 +1,28 @@
 <?php
 
-use yii\helpers\Html;
-//use yii\grid\GridView;
+use kartik\helpers\Html;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ApisSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $category app\models\Categories */
 
 $this->title = 'Apis';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="apis-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php if($category): ?>
+        <h1><?= Html::encode($category->name) . ' ' . Html::encode($this->title) ?></h1>
+    <?php else: ?>
+        <h1><?= Html::encode($this->title) ?></h1>
+    <?php endif; ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Apis', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Html::icon('plus', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Create Apis']), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Read From Swagger', ['swagger/read', 'cbs' => false], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -84,12 +89,14 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute' => '',
 				'label' => 'Swagger Page',
 				'value'=>function ($model, $key, $index, $widget) {
-					if ($model->published)
-						return
-							Html::a('Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary btn-xs']);
-					else
-						return
-							Html::a('Not yet Published', ['/'], ['class' => 'btn btn-primary btn-xs disabled']);
+					if ($model->published) {
+                        return
+                            Html::a('Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary btn-xs']);
+                    }
+					else {
+                        return
+                            Html::a('Not yet Published', ['/'], ['class' => 'btn btn-primary btn-xs disabled']);
+                    }
 				},
 				'format'=>'raw',
 				'hAlign' => GridView::ALIGN_CENTER,

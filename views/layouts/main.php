@@ -35,16 +35,11 @@ AppAsset::register($this);
                 ],
             ]);
             $menuItems = [
-                ['label' => 'Home', 'url' => ['/site/index']],
-				['label' => 'Browse', 'url' => ['/apis/'], 'items' => [
-					['label' => 'APIs', 'url' => ['/apis/']],
-					['label' => 'Objects', 'url' => ['/objects/']],
-					['label' => 'CBS', 'url' => ['/cbs/']],
-				]],
-				['label' => 'Create', 'url' => ['/apis/create'], 'items' => [
-					['label' => 'API', 'url' => ['/apis/create']],
-					['label' => 'CBS', 'url' => ['/cbs/create']],
-				]],
+                ['label' => 'Home', 'url' => ['/']],
+                ['label' => 'Categories', 'url' => ['/categories/']],
+                ['label' => 'APIs', 'url' => ['/apis/']],
+                ['label' => 'Objects', 'url' => ['/objects/']],
+                ['label' => 'CBS', 'url' => ['/cbs/']],
 				['label' => 'Swagger', 'url' => ['/swagger']],
 				['label' => 'About', 'url' => ['/site/about']],
                 //['label' => 'Contact', 'url' => ['/site/contact']],

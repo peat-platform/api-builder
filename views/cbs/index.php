@@ -1,10 +1,10 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\CbsSearch */
+/* @var $searchModel app\models\ApisSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Cloud Based Services (CBS)';
@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-		<?= Html::a('Create CBS', ['create'], ['class' => 'btn btn-success']) ?>
-		<?php // Html::a('Propose New Version', ['propose'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Html::icon('plus', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Create CBS']), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Read From Swagger', ['swagger/read', 'cbs' => true], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute' => 'status',
 				'value'=>function ($model, $key, $index, $widget) {
 					return
-						$model->status == 'pending' ? '<span class="text-warning">pending</span>' : '<span class="text-success">approved</span>';
+						$model->status === 'Approved' ? '<span class="text-success">approved</span>' : '<span class="text-warning">'.$model->status.'</span>';
 				},
 				'format'=>'raw',
 				'hAlign' => GridView::ALIGN_CENTER,
@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
             //'created_by',
 
-			['class' => 'kartik\grid\ActionColumn', 'controller' => 'cbs', 'template' => '{view}'],
+//			['class' => 'kartik\grid\ActionColumn', 'controller' => 'cbs', 'template' => '{view}'],
 
 			[
 				'attribute' => '',

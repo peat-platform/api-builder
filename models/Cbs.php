@@ -41,28 +41,28 @@ class Cbs extends \yii\db\ActiveRecord
             [['created_by', 'created_at'], 'integer'],
             [['status'], 'string'],
             [['url', 'name', 'description', 'version'], 'string', 'max' => 255],
-			[['version'], 'default', 'value' => '1.0'],
-			[['status'], 'default', 'value' => 'pending'],
-			[['name'], 'unique', 'targetClass' => '\app\models\Cbs', 'message' => 'This CBS name has already been taken. You could propose a new Version though.']
+            [['version'], 'default', 'value' => '1.0'],
+            [['status'], 'default', 'value' => 'pending'],
+            [['name'], 'unique', 'targetClass' => '\app\models\Cbs', 'message' => 'This CBS name has already been taken. You could propose a new Version though.']
         ];
     }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function behaviors()
-	{
-		return [
-			[
-				'class' => TimestampBehavior::className(),
-				'updatedAtAttribute' => false,
-			],
-			[
-				'class' => BlameableBehavior::className(),
-				'updatedByAttribute' => false,
-			],
-		];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'updatedAtAttribute' => false,
+            ],
+            [
+                'class' => BlameableBehavior::className(),
+                'updatedByAttribute' => false,
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -77,18 +77,18 @@ class Cbs extends \yii\db\ActiveRecord
             'url' => 'Url',
             'status' => 'Status',
             'created_by' => 'Created By',
-			'createdBy.username' => 'Created By',
+            'createdBy.username' => 'Created By',
             'created_at' => 'Created At',
         ];
     }
 
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getCreatedBy()
-	{
-		return $this->hasOne(User::className(), ['id' => 'created_by']);
-	}
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery

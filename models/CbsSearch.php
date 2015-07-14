@@ -41,20 +41,20 @@ class CbsSearch extends Cbs
     public function search($params)
     {
         $query = Cbs::find();
-		$query->joinWith(['createdBy']);
-		$query->orderBy([
-			'status' => SORT_ASC,
-			'name' => SORT_DESC,
-		]);
+        $query->joinWith(['createdBy']);
+        $query->orderBy([
+            'status' => SORT_ASC,
+            'name' => SORT_DESC,
+        ]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-		$dataProvider->sort->attributes['createdBy.username'] = [
-			'asc' => ['user.username' => SORT_ASC],
-			'desc' => ['user.username' => SORT_DESC],
-		];
+        $dataProvider->sort->attributes['createdBy.username'] = [
+            'asc' => ['user.username' => SORT_ASC],
+            'desc' => ['user.username' => SORT_DESC],
+        ];
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -67,8 +67,8 @@ class CbsSearch extends Cbs
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-			->andFilterWhere(['like', 'description', $this->description])
-			->andFilterWhere(['like', 'url', $this->description])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'url', $this->description])
             ->andFilterWhere(['like', 'version', $this->version])
             ->andFilterWhere(['like', 'status', $this->status]);
 

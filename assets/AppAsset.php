@@ -27,6 +27,7 @@ class AppAsset extends AssetBundle
 	];
 	public $js = [
 //		'js/snackbar.min.js',
+        'js/reflow-objects-recommended.js'
 	];
     public $depends = [
         'yii\web\YiiAsset',

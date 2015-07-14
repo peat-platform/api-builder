@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Cbs */
+/* @var $model app\models\Apis */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -19,6 +19,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'version')->textInput(['maxlength' => 255, 'placeholder' => '1.0']) ?>
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => 255, 'placeholder' => 'http://dev.cbs.org']) ?>
+
+    <?= $form->field($model, 'cbs')->hiddenInput()->label(false) ?>
 
     <?php // $form->field($model, 'status')->dropDownList([ 'approved' => 'Approved', 'pending' => 'Pending', ], ['prompt' => '']) ?>
 

@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "objects".
@@ -22,11 +23,11 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $updated_at
  * @property integer $votes_up
  * @property integer $votes_down
- * @property string $cbs
  * @property integer $proposed
  * @property string $schema_org
  *
  * @property Comments[] $comments
+ * @property ObjectCbs[] $objectCbs
  * @property Apis $api0
  * @property Objects $inherited0
  * @property Objects[] $objects
@@ -36,6 +37,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class Objects extends \yii\db\ActiveRecord
 {
+    public $selectedCbs = [];
+
     /**
      * @inheritdoc
      */
@@ -52,11 +55,16 @@ class Objects extends \yii\db\ActiveRecord
         return [
             [['name', 'privacy'], 'required'],
             [['api', 'inherited', 'created_by', 'updated_by', 'created_at', 'updated_at', 'votes_up', 'votes_down', 'proposed'], 'integer'],
-            [['privacy', 'methods', 'cbs'], 'string'],
+            [['privacy', 'methods'], 'string'],
             [['name', 'description', 'schema_org'], 'string', 'max' => 255],
 			[['privacy'], 'default', 'value' => 'public'],
 			[['votes_up', 'votes_down'], 'default', 'value' => '0'],
-			[['name'], 'unique', 'targetClass' => '\app\models\Objects', 'message' => 'This Object name has already been taken.']
+			[['name'], 'unique', 'targetAttribute' => ['api', 'name'], 'message' => 'This Object name has already been taken.'],
+            ['selectedCbs',function ($attribute, $params) {
+                if(!is_array($this->selectedCbs)){
+                    $this->addError('selectedCbs','Selected Cbs is not array!');
+                }
+            }]
         ];
     }
 
@@ -84,7 +92,6 @@ class Objects extends \yii\db\ActiveRecord
             'inherited' => 'Inherited',
             'privacy' => 'Privacy',
             'methods' => 'Methods',
-			'cbs' => 'CBS',
             'created_by' => 'Created By ID',
             'updated_by' => 'Updated By ID',
 			'createdBy.username' => 'Created By',
@@ -156,4 +163,21 @@ class Objects extends \yii\db\ActiveRecord
 	{
 		return $this->hasMany(Comments::className(), ['object' => 'id']);
 	}
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getObjectCbs()
+    {
+        return $this->hasMany(ObjectCbs::className(), ['object' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCbs()
+    {
+        return $this->hasMany(Apis::className(), ['id' => 'cbs'])
+            ->via('objectCbs');
+    }
 }

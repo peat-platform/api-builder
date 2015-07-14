@@ -150,7 +150,7 @@ TAG;
 		// Make the Author Profile Pic
 		$authorProfilePicture = Yii::getAlias('@web') . "/images/def_avatar.png";
 		$authorImage = Html::img($commentModel->createdBy->getImage()->getUrl('100x100'), $this->imageOptions);
-		$comment .= Html::a($authorImage, '#', ['class' => 'pull-left']);
+		$comment .= Html::a($authorImage, ['/profile/', 'id' => $commentModel->createdBy->id], ['class' => 'pull-left']);
 
 		// Make the Author Name with Date
 		$authorName = Html::tag('h5', $commentModel->createdBy->username, ['class' => 'media-heading reviews']);
@@ -161,14 +161,14 @@ TAG;
 		$commentText = Html::tag('p', $commentModel->text, ['class' => 'comment']);
 		// Make the Reply Button
 		$replyGlyph = Html::tag('span', '', ['class' => 'glyphicon glyphicon-share-alt']);
-		$replyButton = Html::a($replyGlyph . ' Reply', '#ReplyTo' . $commentModel->id, ['class' => 'btn btn-sm btn-info btn-circle text-uppercase pull-right reply-btn', 'data' => ['toggle' => 'collapse']]);
+		$replyButton = Html::a($replyGlyph . ' Reply', '#ReplyTo' . $commentModel->id, ['class' => 'btn btn-sm btn-success btn-circle text-uppercase pull-right reply-btn', 'data' => ['toggle' => 'collapse']]);
 		// Make the Show Replies Button if replies do exist
 		$repliesGlyph = Html::tag('span', '', ['class' => 'glyphicon glyphicon-comment']);
 		if (count($replies) == 1)
 			$howManyReplies = ' 1 reply';
 		else
 			$howManyReplies = ' ' . count($replies) . ' replies';
-		$repliesButton = Html::a($repliesGlyph . $howManyReplies, '#RepliesTo' . $commentModel->id, ['class' => 'btn btn-sm btn-warning btn-circle text-uppercase pull-right reply-btn', 'data' => ['toggle' => 'collapse']]);
+		$repliesButton = Html::a($repliesGlyph . $howManyReplies, '#RepliesTo' . $commentModel->id, ['class' => 'btn btn-sm btn-primary btn-circle text-uppercase pull-right reply-btn', 'data' => ['toggle' => 'collapse']]);
 		// Make the Wrapper for all the above
 		$wellDiv = Html::tag('div', $authorName . $commentDate . $commentText . $replyButton . $repliesButton, ['class' => 'well well-lg']);
 
